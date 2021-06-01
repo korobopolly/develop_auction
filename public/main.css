@@ -1,5 +1,41 @@
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; height: 100%; }
+/*이준성 추가 css 시작*/
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+html {
+  height: 100%;
+  font-size: 62.5%; }
+
+body {
+  font-size:1.6rem;
+  height: 100%;
+  background-color: white;
+  font-family: "Lato",sans-serif;
+  font-weight: 400; }
+
+  
+.title{
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.heading-first {
+  color: black;
+  font-size: 6rem; }
+
+.underline {
+  margin-top: 2rem;
+  border-color: black; }
+
+a {
+  color:black;
+  text-decoration: none; }
+/*이준성 추가 css 종료*/
+
 .btn {
   display: inline-block;
   padding: 0 5px;
