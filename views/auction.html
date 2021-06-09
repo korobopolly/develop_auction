@@ -54,7 +54,22 @@
     es.onmessage = (e) => {
       const end = new Date(time.dataset.start); // 경매 시작 시간
       const server = new Date(parseInt(e.data, 10));
-      end.setDate(end.getDate() + 1); // 경매 종료 시간
+
+      // end의 시간을 받았을 때 21시 이전이면 경매 종료 시간을 +3시간 해준다.
+      if(end.getHours < 21){
+          end.setHours(end.getHours+3);
+        }
+        // end의 시간을 받았을 때 21시 이후이면 경매 종료 시간을 end의 일 수를 1일 늘려주고 시간을 조정한다.
+        else{
+          end.setDate(end.getDate()+1);
+          if(end.getHours==21)
+            end.setHours(0);
+          if(end.getHours==22)
+            end.setHours(1);
+          if(end.getHours==23)
+            end.setHours(2);
+        }
+
       if (server >= end) { // 경매가 종료되었으면
         return time.textContent = '00:00:00';
       } else {
@@ -62,7 +77,13 @@
         const seconds = ('0' + Math.floor((t / 1000) % 60)).slice(-2);
         const minutes = ('0' + Math.floor((t / 1000 / 60) % 60)).slice(-2);
         const hours = ('0' + Math.floor((t / (1000 * 60 * 60)) % 24)).slice(-2);
-        return time.textContent = hours + ':' + minutes + ':' + seconds;
+        
+        // 경매가 종료되었을 때
+        if(hours-21<0)
+          return time.textContent = '00:00:00';
+        // 경매 진행 중일 때
+        else
+         return time.textContent = hours-21 + ':' + minutes + ':' + seconds;
       }
     };
     const socket = io.connect('http://localhost:8010', {
